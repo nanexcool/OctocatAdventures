@@ -74,6 +74,7 @@
   <ItemGroup>
     <Compile Include="Bullet.cs" />
     <Compile Include="Entity.cs" />
+    <Compile Include="InfiniteEnemiesMap.cs" />
     <Compile Include="Map.cs" />
     <Compile Include="Pistol.cs" />
     <Compile Include="Player.cs" />

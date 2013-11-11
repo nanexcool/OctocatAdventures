@@ -42,7 +42,7 @@ namespace OctocatAdventures
         {
             Util.Initialize(this);
 
-            map = new Map(25, 15);
+            map = new InfiniteEnemiesMap(25, 15);
 
             map.AddEntity(new Player(Content.Load<Texture2D>("Octocat"))
             {
@@ -53,13 +53,6 @@ namespace OctocatAdventures
             });
 
             player = (Player)map.Entities[0];
-
-            map.AddEntity(new Entity(32, 64)
-            {
-                Color = Color.Blue,
-                Position = new Vector2(0, 400),
-                Velocity = new Vector2(100, 0)
-            });
 
             Weapon.ReloadSound = Content.Load<SoundEffect>("sounds/gun_reload");
             //Weapon.EmptyShootSound = Content.Load<SoundEffectInstance>("sounds/gun_empty_click");
