@@ -13,6 +13,7 @@ namespace OctocatAdventures
             ReloadSpeed = 1f;
             ClipSize = 15;
             Ammo = ClipSize;
+            Damage = 1;
         }
     }
 }

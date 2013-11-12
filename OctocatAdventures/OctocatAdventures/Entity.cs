@@ -33,10 +33,11 @@ namespace OctocatAdventures
         {
             get { return new Rectangle(X, Y, Width, Height); }
         }
+
         public Rectangle HitBox
         {
             get { return new Rectangle(X, Y, Width, Height); }
-        }
+        }        
 
         public Map Map { get; set; }
 
@@ -177,7 +178,7 @@ namespace OctocatAdventures
             spriteBatch.Draw(Texture, Position, Source, Color);
 
             // Debugging stuff
-            //spriteBatch.Draw(Util.BlankTexture, CollisionBox, Color.Red * 0.2f);
+            spriteBatch.Draw(Util.BlankTexture, HitBox, Color.Red * 0.2f);
         }
     }
 }

@@ -32,6 +32,8 @@ namespace OctocatAdventures
         public int Ammo { get; set; }
         public int ClipSize { get; set; }
 
+        public int Damage { get; set; }
+
         public float ShootSpeed { get; set; }
         public float ReloadSpeed { get; set; }
 

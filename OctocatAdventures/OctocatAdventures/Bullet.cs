@@ -39,6 +39,7 @@ namespace OctocatAdventures
                     // We have a hit!
                     e.DoDamage(Damage);
                     Active = false;
+                    return;
                 }
             }
             // Deactivate if outside bounds

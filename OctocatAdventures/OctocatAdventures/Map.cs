@@ -25,7 +25,7 @@ namespace OctocatAdventures
         public Tile[] Tiles { get; set; }
         public List<Tile> TilesToUpdate { get; set; }
 
-        public const int TileSize = 32;
+        public int TileSize = 32;
 
         public Map(int w, int h)
         {

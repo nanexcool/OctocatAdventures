@@ -60,16 +60,19 @@ namespace OctocatAdventures
                 {
                     p = new Vector2(position.X + Width / 2, position.Y);
                 }
-                Bullets.Add(new Bullet()
+                Bullet b = new Bullet()
                 {
                     Owner = this,
                     Active = true,
                     Position = p,
                     Velocity = direction * 500,
-                    Width = 8,
-                    Height = 8,
-                    Damage = 1
-                });
+                    Width = 16,
+                    Height = 16,
+                    Damage = EquippedWeapon.Damage
+                };
+                
+                Bullets.Add(b);
+                
                 canShoot = false;
                 shootTimer = 0;
             }
@@ -110,7 +113,7 @@ namespace OctocatAdventures
 
                 if (Collides(e))
                 {
-                    position.X -= velocity.X / 2;
+                    e.Active = false;
                 }
             }
             
@@ -119,8 +122,8 @@ namespace OctocatAdventures
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            string text = string.Format("{0}, {1}, {2}", EquippedWeapon.Ammo, EquippedWeapon.State, EquippedWeapon.reloadTimer);
-            //spriteBatch.DrawString(Util.Font, text, new Vector2(X, Y - 24), Color.Red);
+            string text = string.Format("{0}, {1}, {2}", EquippedWeapon.Ammo, EquippedWeapon.GetType().Name, EquippedWeapon.State);
+           spriteBatch.DrawString(Util.Font, text, new Vector2(X, Y - 24), Color.Red);
             base.Draw(spriteBatch);
 
             foreach (Bullet b in Bullets)

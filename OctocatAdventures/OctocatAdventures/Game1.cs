@@ -19,7 +19,8 @@ namespace OctocatAdventures
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
-        KeyboardState oldState, state;
+        KeyboardState oldKeyboardState, keyboardState;
+        MouseState oldMouseState, mouseState;
 
         Map map;
         Player player;
@@ -90,13 +91,16 @@ namespace OctocatAdventures
         {
             float elapsed = (float)gameTime.ElapsedGameTime.TotalSeconds;
             
-            oldState = state;
-            state = Keyboard.GetState();
+            oldKeyboardState = keyboardState;
+            keyboardState = Keyboard.GetState();
 
-            if (state.IsKeyDown(Keys.Escape))
+            oldMouseState = mouseState;
+            mouseState = Mouse.GetState();
+
+            if (keyboardState.IsKeyDown(Keys.Escape))
                 this.Exit();
 
-            if (state.IsKeyDown(Keys.LeftControl) && oldState.IsKeyUp(Keys.LeftControl))
+            if (keyboardState.IsKeyDown(Keys.LeftControl) && oldKeyboardState.IsKeyUp(Keys.LeftControl))
             {
                 IsFixedTimeStep = !IsFixedTimeStep;
                 graphics.SynchronizeWithVerticalRetrace = !graphics.SynchronizeWithVerticalRetrace;
@@ -130,41 +134,47 @@ namespace OctocatAdventures
 
         private void HandlePlayerInput()
         {
+            if (mouseState.LeftButton == ButtonState.Pressed)// && oldMouseState.LeftButton == ButtonState.Released)
+            {
+                Tile t = map.GetTile(mouseState.X / map.TileSize, mouseState.Y / map.TileSize);
+                t.Color = Color.Red;
+            }
+
             Vector2 d = Vector2.Zero;
 
-            if (state.IsKeyDown(Keys.A))
+            if (keyboardState.IsKeyDown(Keys.A))
             {
                 d.X = -1;
             }
-            if (state.IsKeyDown(Keys.E))
+            if (keyboardState.IsKeyDown(Keys.E))
             {
                 d.X = 1;
             }
-            if (state.IsKeyDown(Keys.Space) || state.IsKeyDown(Keys.OemComma))
+            if (keyboardState.IsKeyDown(Keys.Space) || keyboardState.IsKeyDown(Keys.OemComma))
             {
                 player.Jump();
             }
-            if (state.IsKeyDown(Keys.Down))
+            if (keyboardState.IsKeyDown(Keys.Down))
             {
 
             }
-            if (state.IsKeyDown(Keys.Left))
+            if (keyboardState.IsKeyDown(Keys.Left))
             {
                 player.Shoot(Vector2.UnitX * -1);
             }
-            if (state.IsKeyDown(Keys.Right))
+            if (keyboardState.IsKeyDown(Keys.Right))
             {
                 player.Shoot(Vector2.UnitX);
             }
-            if (state.IsKeyDown(Keys.Up))
+            if (keyboardState.IsKeyDown(Keys.Up))
             {
                 player.Shoot(Vector2.UnitY * -1);
             }
-            if (state.IsKeyDown(Keys.P) && oldState.IsKeyUp(Keys.P))
+            if (keyboardState.IsKeyDown(Keys.P) && oldKeyboardState.IsKeyUp(Keys.P))
             {
                 player.Reload();
             }
-            if (state.IsKeyDown(Keys.PageDown) && oldState.IsKeyUp(Keys.PageDown))
+            if (keyboardState.IsKeyDown(Keys.PageDown) && oldKeyboardState.IsKeyUp(Keys.PageDown))
             {
                 player.ChangeWeapon();
             }
