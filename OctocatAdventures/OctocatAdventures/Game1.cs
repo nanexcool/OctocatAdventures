@@ -134,10 +134,13 @@ namespace OctocatAdventures
 
         private void HandlePlayerInput()
         {
-            if (mouseState.LeftButton == ButtonState.Pressed)// && oldMouseState.LeftButton == ButtonState.Released)
+            if (mouseState.LeftButton == ButtonState.Pressed && oldMouseState.LeftButton == ButtonState.Released)
             {
                 Tile t = map.GetTile(mouseState.X / map.TileSize, mouseState.Y / map.TileSize);
-                t.Color = Color.Red;
+                if (t.Color == Color.Red) 
+                    t.Color = Color.White;
+                else 
+                    t.Color = Color.Red;
             }
 
             Vector2 d = Vector2.Zero;

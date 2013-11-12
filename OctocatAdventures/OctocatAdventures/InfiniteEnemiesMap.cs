@@ -22,17 +22,19 @@ namespace OctocatAdventures
 
         public override void Update(float elapsed)
         {
-            timer += elapsed;
-            if (timer >= SecondsPerEnemy)
-            {
-                AddEntity(new Entity(Util.Next(16, 33), Util.Next(32, 65))
-                {
-                    Color = Color.Blue,
-                    Position = new Vector2(0, 400),
-                    Velocity = new Vector2(100, 0)
-                });
-                timer -= SecondsPerEnemy;
-            }
+            //timer += elapsed;
+            //if (timer >= SecondsPerEnemy)
+            //{
+            //    Entity e = new Entity(Util.Next(16, 33), Util.Next(32, 65))
+            //    {
+            //        Color = Color.Blue,
+            //        Position = new Vector2(0, 400),
+            //        Velocity = new Vector2(100, 0)
+            //    };
+                
+            //    AddEntity(e);
+            //    timer -= SecondsPerEnemy;
+            //}
             base.Update(elapsed);
         }
     }

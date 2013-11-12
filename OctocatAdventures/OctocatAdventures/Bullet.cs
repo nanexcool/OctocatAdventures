@@ -34,7 +34,7 @@ namespace OctocatAdventures
             {
                 if (e == Owner) continue;
 
-                if (HitBox.Intersects(e.HitBox))
+                if (HitBox.Intersects(e.CollisionBox))
                 {
                     // We have a hit!
                     e.DoDamage(Damage);

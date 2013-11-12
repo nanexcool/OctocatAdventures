@@ -34,9 +34,11 @@ namespace OctocatAdventures
             get { return new Rectangle(X, Y, Width, Height); }
         }
 
+        protected Rectangle hitBox;
         public Rectangle HitBox
         {
-            get { return new Rectangle(X, Y, Width, Height); }
+            get { return new Rectangle(X + hitBox.X, Y + hitBox.Y, hitBox.Width, hitBox.Height); }
+            set { hitBox = value; }
         }        
 
         public Map Map { get; set; }
@@ -100,6 +102,8 @@ namespace OctocatAdventures
 
             Health = 3;
             Active = true;
+
+            hitBox = new Rectangle(0, 0, Width, Height);
         }
 
         public void DoDamage(int damage)
@@ -134,7 +138,27 @@ namespace OctocatAdventures
         {
             return CollisionBox.Intersects(e.CollisionBox);
         }
-        
+
+        public virtual bool Collides(Map map)
+        {
+            int x1 = CollisionBox.Left / map.TileSize;
+            int y1 = CollisionBox.Top / map.TileSize;
+            int x2 = CollisionBox.Right / map.TileSize;
+            int y2 = CollisionBox.Bottom / map.TileSize - 1;
+
+            for (int y = y1; y <= y2; y++)
+            {
+                for (int x = x1; x <= x2; x++)
+                {
+                    if (map.GetTile(x, y).Color == Color.Red)
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+
         public virtual void Update(float elapsed)
         {
             velocity += gravity * elapsed;
@@ -147,8 +171,14 @@ namespace OctocatAdventures
 
             // THIS IS THE ACTUAL MOMENT WE MOVE THE ENTITY
             // NEED TO CHECK COLLISIONS BEFORE THIS...
-            position += velocity * elapsed;
 
+            Vector2 prevPosition = position;
+            position += velocity * elapsed;
+            if (Collides(Map))
+            {
+                position = prevPosition;
+            }
+            
             // Clamp to Map
             
             position = Vector2.Clamp(position, Vector2.Zero, new Vector2(Map.Bounds.Width - Width, Map.Bounds.Height - Height));
@@ -178,7 +208,7 @@ namespace OctocatAdventures
             spriteBatch.Draw(Texture, Position, Source, Color);
 
             // Debugging stuff
-            spriteBatch.Draw(Util.BlankTexture, HitBox, Color.Red * 0.2f);
+            spriteBatch.Draw(Util.BlankTexture, CollisionBox, Color.Red * 0.6f);
         }
     }
 }
