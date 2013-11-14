@@ -39,6 +39,13 @@ namespace OctocatAdventures
                     // We have a hit!
                     e.DoDamage(Damage);
                     Active = false;
+
+                    // Create particles
+                    Particle p = new Particle();
+                    p.Initialize(position, Velocity * -1, Vector2.Zero, Color.Red, 1f, 0f, 0, 0.5f);
+                    
+
+
                     return;
                 }
             }

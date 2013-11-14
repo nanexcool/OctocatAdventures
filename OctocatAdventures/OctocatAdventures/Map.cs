@@ -57,6 +57,10 @@ namespace OctocatAdventures
 
         public Tile GetTile(int xTile, int yTile)
         {
+            if (xTile < 0 || yTile < 0 || xTile >= Width || yTile >= Height)
+            {
+                return null;
+            }
             return Tiles[xTile + yTile * Width];
         }
 

@@ -122,7 +122,8 @@ namespace OctocatAdventures
 
         public void Move(Vector2 direction)
         {
-            velocity.X = direction.X * speed.X;
+            //velocity.X = direction.X * speed.X;
+            acceleration.X = direction.X * speed.X;
         }
 
         public void Jump()
@@ -144,13 +145,16 @@ namespace OctocatAdventures
             int x1 = CollisionBox.Left / map.TileSize;
             int y1 = CollisionBox.Top / map.TileSize;
             int x2 = CollisionBox.Right / map.TileSize;
-            int y2 = CollisionBox.Bottom / map.TileSize - 1;
+            int y2 = CollisionBox.Bottom / map.TileSize;
+
+            Tile t;
 
             for (int y = y1; y <= y2; y++)
             {
                 for (int x = x1; x <= x2; x++)
                 {
-                    if (map.GetTile(x, y).Color == Color.Red)
+                    t = map.GetTile(x, y);
+                    if (t != null && t.Color == Color.Red)
                     {
                         return true;
                     }
@@ -167,6 +171,8 @@ namespace OctocatAdventures
             // Clamp Velocity
             velocity = Vector2.Clamp(velocity, new Vector2(-speed.X, -500), new Vector2(speed.X, 1000));
 
+            acceleration.X = MathHelper.Clamp(acceleration.X, -100, 100);
+            acceleration.Y = MathHelper.Clamp(acceleration.Y, -100, 100);
             //CheckCollisions();
 
             // THIS IS THE ACTUAL MOMENT WE MOVE THE ENTITY
@@ -177,11 +183,16 @@ namespace OctocatAdventures
             if (Collides(Map))
             {
                 position = prevPosition;
+                velocity = Vector2.Zero;
+
+                // TODO: check if collision was for ground tile...
+                isJumping = false;
             }
             
             // Clamp to Map
-            
+            //velocity.X *= 1 - .99f * elapsed;
             position = Vector2.Clamp(position, Vector2.Zero, new Vector2(Map.Bounds.Width - Width, Map.Bounds.Height - Height));
+            
             if (Y + Height == Map.Bounds.Height)
             {
                 isJumping = false;

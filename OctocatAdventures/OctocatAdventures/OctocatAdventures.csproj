@@ -76,6 +76,8 @@
     <Compile Include="Entity.cs" />
     <Compile Include="InfiniteEnemiesMap.cs" />
     <Compile Include="Map.cs" />
+    <Compile Include="Particle.cs" />
+    <Compile Include="ParticleSystem.cs" />
     <Compile Include="Pistol.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

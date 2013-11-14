@@ -122,8 +122,9 @@ namespace OctocatAdventures
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            string text = string.Format("{0}, {1}, {2}", EquippedWeapon.Ammo, EquippedWeapon.GetType().Name, EquippedWeapon.State);
-           spriteBatch.DrawString(Util.Font, text, new Vector2(X, Y - 24), Color.Red);
+            //string text = string.Format("{0}, {1}, {2}", EquippedWeapon.Ammo, EquippedWeapon.GetType().Name, EquippedWeapon.State);
+            string text = velocity.ToString();
+            spriteBatch.DrawString(Util.Font, text, new Vector2(X, Y - 24), Color.Red);
             base.Draw(spriteBatch);
 
             foreach (Bullet b in Bullets)

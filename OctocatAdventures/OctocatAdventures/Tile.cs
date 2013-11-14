@@ -11,6 +11,7 @@ namespace OctocatAdventures
     public class Tile
     {
         public Color Color { get; set; }
+        public Color PreviousColor { get; set; }
         public bool IsSolid { get; set; }
 
         public void Update(float elapsed)
